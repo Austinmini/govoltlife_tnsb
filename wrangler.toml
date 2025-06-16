@@ -1,0 +1,5 @@
+name = "govoltlife_tnsb"
+compatibility_date = "2025-06-16"
+
+[site]
+bucket = "./next"
