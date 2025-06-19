@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
+  title: 'GoVoltLife Blog',
+  author: 'GoVoltLife',
+  headerTitle: 'GoVoltLife Blog',
+  description: 'A blog about how to live a life of sustainability',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://govoltlife.com',
