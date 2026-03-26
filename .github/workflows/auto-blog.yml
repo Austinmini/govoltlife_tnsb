@@ -30,10 +30,9 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-          AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
-          AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
+          AMAZON_CREDENTIAL_ID: ${{ secrets.AMAZON_CREDENTIAL_ID }}
+          AMAZON_CREDENTIAL_SECRET: ${{ secrets.AMAZON_CREDENTIAL_SECRET }}
           AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
-          AMAZON_PARTNER_TAG: ${{ secrets.AMAZON_PARTNER_TAG }}
         run: node scripts/generate-post.mjs
 
       - name: Commit and push new post
@@ -41,5 +40,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/blog/
-          git diff --staged --quiet || git commit -m "Auto-publish: new blog post [skip ci]"
+          # NOTE: Do NOT use [skip ci] here — Cloudflare Pages watches for commits to trigger builds
+          git diff --staged --quiet || git commit -m "Auto-publish: new blog post $(date +'%Y-%m-%d')"
           git push
+
+      - name: Trigger Cloudflare Pages deploy webhook (optional backup)
+        # Only runs if you've set a CF_DEPLOY_HOOK secret (see setup guide)
+        if: ${{ secrets.CF_DEPLOY_HOOK != '' }}
+        run: curl -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
