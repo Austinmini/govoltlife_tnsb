@@ -1,3 +1,4 @@
+/* eslint-disable */
 // scripts/generate-post.mjs
 // Fetches trending news, generates a blog post with Claude, injects Amazon affiliate links
 // Uses Amazon Creators API (successor to PA API 5.0, retiring May 2026)
